@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * The PRICE_FILTER defines the price rules for a symbol.
  *
  * The LOT_SIZE filter defines the quantity (aka "lots" in auction terms) rules for a symbol.
+ * 
+ * The NOTIONAL filter defines the acceptable notional range allowed for an order on a symbol.
  *
  * The MIN_NOTIONAL filter defines the minimum notional value allowed for an order on a symbol. An order's notional value is the price * quantity.
  *
@@ -76,6 +78,30 @@ public class SymbolFilter {
    * ICEBERG_PARTS filter defines the maximum parts an iceberg order can have. The number of ICEBERG_PARTS is defined as CEIL(qty / icebergQty).
    */
   private String limit;
+
+  private String minTrailingAboveDelta;
+
+  private String maxTrailingAboveDelta;
+
+  private String minTrailingBelowDelta;
+
+  private String maxTrailingBelowDelta;
+
+  private String bidMultiplierUp;
+
+  private String bidMultiplierDown;
+
+  private String askMultiplierUp;
+
+  private String askMultiplierDown;
+
+  private String avgPriceMins;
+
+  private String applyMinToMarket;
+
+  private String applyMaxToMarket;
+
+  private String maxNotional;
 
   public FilterType getFilterType() {
     return filterType;
@@ -157,4 +183,101 @@ public class SymbolFilter {
   public void setLimit(String limit) {
     this.limit = limit;
   }
+
+  public String getMinTrailingAboveDelta() {
+    return this.minTrailingAboveDelta;
+  }
+
+  public void setMinTrailingAboveDelta(String trailingDelta) {
+    this.minTrailingAboveDelta = trailingDelta;
+  }
+
+  public String getMaxTrailingAboveDelta() {
+    return this.maxTrailingAboveDelta;
+  }
+
+  public void setMaxTrailingAboveDelta(String trailingDelta) {
+    this.maxTrailingAboveDelta = trailingDelta;
+  }
+
+  public String getMinTrailingBelowDelta() {
+    return this.minTrailingBelowDelta;
+  }
+
+  public void setMinTrailingBelowDelta(String trailingDelta) {
+    this.minTrailingBelowDelta = trailingDelta;
+  }
+
+  public String getMaxTrailingBelowDelta() {
+    return this.maxTrailingBelowDelta;
+  }
+
+  public void setMaxTrailingBelowDelta(String trailingDelta) {
+    this.maxTrailingBelowDelta = trailingDelta;
+  }
+
+  public String getBidMultiplierUp() {
+    return bidMultiplierUp;
+  }
+
+  public void setBidMultiplierUp(String bidMultiplierUp) {
+    this.bidMultiplierUp = bidMultiplierUp;
+  }
+
+  public String getBidMultiplierDown() {
+    return bidMultiplierDown;
+  }
+
+  public void setBidMultiplierDown(String bidMultiplierDown) {
+    this.bidMultiplierDown = bidMultiplierDown;
+  }
+
+  public String getAskMultiplierUp() {
+    return askMultiplierUp;
+  }
+
+  public void setAskMultiplierUp(String askMultiplierUp) {
+    this.askMultiplierUp = askMultiplierUp;
+  }
+
+  public String getAskMultiplierDown() {
+    return askMultiplierDown;
+  }
+
+  public void setAskMultiplierDown(String askMultiplierDown) {
+    this.askMultiplierDown = askMultiplierDown;
+  }
+
+  public String getAvgPriceMins() {
+    return avgPriceMins;
+  }
+
+  public void setAvgPriceMins(String avgPriceMins) {
+    this.avgPriceMins = avgPriceMins;
+  }
+
+  public String getApplyMinToMarket() {
+    return applyMinToMarket;
+  }
+
+  public void setApplyMinToMarket(String applyMinToMarket) {
+    this.applyMinToMarket = applyMinToMarket;
+  }
+  
+    public String getApplyMaxToMarket() {
+    return applyMaxToMarket;
+  }
+
+  public void setApplyMaxToMarket(String applyMaxToMarket) {
+    this.applyMaxToMarket = applyMaxToMarket;
+  }
+
+  public String getMaxNotional() {
+    return maxNotional;
+  }
+
+  public void setMaxNotional(String maxNotional) {
+    this.maxNotional = maxNotional;
+  }
+
 }

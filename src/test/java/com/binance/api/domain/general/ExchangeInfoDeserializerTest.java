@@ -69,6 +69,26 @@ public class ExchangeInfoDeserializerTest {
         "    }, {\n" +
         "      \"filterType\": \"MIN_NOTIONAL\",\n" +
         "      \"minNotional\": \"0.00100000\"\n" +
+        "    }, {\n" +
+        "      \"filterType\": \"TRAILING_DELTA\",\n" +
+        "      \"minTrailingAboveDelta\": 10,\n" +
+        "      \"maxTrailingAboveDelta\": 2000,\n" +
+        "      \"minTrailingBelowDelta\": 10,\n" +
+        "      \"maxTrailingBelowDelta\": 2000\n" +
+        "    }, {\n" +
+        "      \"filterType\": \"PERCENT_PRICE_BY_SIDE\",\n" +
+        "      \"bidMultiplierUp\": \"5\",\n" +
+        "      \"bidMultiplierDown\": \"0.2\",\n" +
+        "      \"askMultiplierUp\": \"5\",\n" +
+        "      \"askMultiplierDown\": \"0.2\",\n" +
+        "      \"avgPriceMins\": \"5\"\n" +
+        "    }, {\n" +
+        "      \"filterType\": \"NOTIONAL\",\n" +
+        "      \"minNotional\": \"0.00010000\",\n" +
+        "      \"applyMinToMarket\": true,\n" +
+        "      \"maxNotional\": \"9000000.00000000\",\n" +
+        "      \"applyMaxToMarket\": false,\n" +
+        "      \"avgPriceMins\": \"5\"\n" +
         "    }]\n" +
         "  }]" +
         "}";
@@ -98,7 +118,7 @@ public class ExchangeInfoDeserializerTest {
       assertFalse(symbolInfo.isIcebergAllowed());
 
       List<SymbolFilter> symbolFilters = symbolInfo.getFilters();
-      assertEquals(symbolFilters.size(), 3);
+      assertEquals(symbolFilters.size(), 6);
 
       SymbolFilter priceFilter = symbolFilters.get(0);
       assertEquals(priceFilter.getFilterType(), FilterType.PRICE_FILTER);
@@ -115,6 +135,30 @@ public class ExchangeInfoDeserializerTest {
       SymbolFilter minNotionalFilter = symbolFilters.get(2);
       assertEquals(minNotionalFilter.getFilterType(), FilterType.MIN_NOTIONAL);
       assertEquals(minNotionalFilter.getMinNotional(), "0.00100000");
+
+      SymbolFilter trailingDeltaFilter = symbolFilters.get(3);
+      assertEquals(trailingDeltaFilter.getFilterType(), FilterType.TRAILING_DELTA);
+      assertEquals(trailingDeltaFilter.getMinTrailingAboveDelta(), "10");
+      assertEquals(trailingDeltaFilter.getMaxTrailingAboveDelta(), "2000");
+      assertEquals(trailingDeltaFilter.getMinTrailingBelowDelta(), "10");
+      assertEquals(trailingDeltaFilter.getMaxTrailingBelowDelta(), "2000");
+
+      SymbolFilter percentPriceBySideFilter = symbolFilters.get(4);
+      assertEquals(percentPriceBySideFilter.getFilterType(), FilterType.PERCENT_PRICE_BY_SIDE);
+      assertEquals(percentPriceBySideFilter.getBidMultiplierUp(), "5");      
+      assertEquals(percentPriceBySideFilter.getBidMultiplierDown(), "0.2");
+      assertEquals(percentPriceBySideFilter.getAskMultiplierUp(), "5");
+      assertEquals(percentPriceBySideFilter.getAskMultiplierDown(), "0.2");
+      assertEquals(percentPriceBySideFilter.getAvgPriceMins(), "5");
+
+      SymbolFilter notionalFilter = symbolFilters.get(5);
+      assertEquals(notionalFilter.getFilterType(), FilterType.NOTIONAL);
+      assertEquals(notionalFilter.getMinNotional(), "0.00010000");
+      assertEquals(notionalFilter.getApplyMinToMarket(), "true");
+      assertEquals(notionalFilter.getMaxNotional(), "9000000.00000000");
+      assertEquals(notionalFilter.getApplyMaxToMarket(), "false");
+      assertEquals(notionalFilter.getAvgPriceMins(), "5");
+      
     } catch (IOException e) {
       fail();
     }
